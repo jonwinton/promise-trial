@@ -42,13 +42,13 @@ describe('Promise Trial', function () {
     });
 
     it('if argument does not include `promise` and `comparitor` arguments', function () {
-      lib({}).catch(e => { expect(e).to.be.an('error'); })
+      lib([{}]).catch(e => { expect(e).to.be.an('error'); })
     });
   });
 
   // Successful Promises
   describe('when successful the return object contains', function () {
-    var fn = lib({
+    var fn = lib([{
       promise: one,
       comparitor: lessThanFour
     }, {
@@ -57,9 +57,9 @@ describe('Promise Trial', function () {
     }, {
       promise: three,
       comparitor: lessThanFour
-    });
+    }]);
 
-    it('a `passes` key set to `true`', function () {
+    it('a `passed` key set to `true`', function () {
       return fn.then(results => { expect(results.passed).to.be.true; });
     });
 
@@ -78,7 +78,7 @@ describe('Promise Trial', function () {
 
   // When one or more Promise fails
   describe('when one or more Promises reject but the rest all pass the return object contains', function () {
-    var fn = lib({
+    var fn = lib([{
       promise: one,
       comparitor: lessThanFour
     }, {
@@ -90,9 +90,9 @@ describe('Promise Trial', function () {
     }, {
       promise: three,
       comparitor: lessThanFour
-    });
+    }]);
 
-    it('a `passes` key set to `true`', function () {
+    it('a `passed` key set to `true`', function () {
       return fn.then(results => { expect(results.passed).to.be.true; });
     });
 
@@ -119,7 +119,7 @@ describe('Promise Trial', function () {
 
   // Failing tests
   describe('when fails the return object contains', function () {
-    var fn = lib({
+    var fn = lib([{
       promise: one,
       comparitor: lessThanFour
     }, {
@@ -128,9 +128,9 @@ describe('Promise Trial', function () {
     }, {
       promise: three,
       comparitor: lessThanThree
-    });
+    }]);
 
-    it('a `passes` key set to `false`', function () {
+    it('a `passed` key set to `false`', function () {
       return fn.then(results => { expect(results.passed).to.be.false; });
     });
 

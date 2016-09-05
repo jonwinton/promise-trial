@@ -1,10 +1,10 @@
-export default function (...args) {
-  if (!args || !args.length) {
+export default function (arr) {
+  if (!arr || !arr.length) {
     throw new Error('Promise-Trial: At least one entry is required to test.');
   }
 
   return new Promise((resolve, reject) => {
-    var count = args.length,
+    var count = arr.length,
     resolvedData = [],
     rejected = [],
     completed = 0,
@@ -13,7 +13,7 @@ export default function (...args) {
 
     for (i; i < count; i++) {
       // Alias current item
-      item = args[i];
+      item = arr[i];
 
       if (!item.promise || !item.comparitor) {
         reject(new Error(`Promise-Trial: argument at index ${i} must contain a 'promise' and 'comparitor' argument`));
