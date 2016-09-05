@@ -35,30 +35,33 @@ export default function (arr, ...args) {
     var count = arr.length,
       resolvedData = [],
       rejected = [],
-      completed = 0,
-      i = 0,
-      item = null;
+      completed = 0;
 
-    for (i; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       // Alias current item
-      item = arr[i];
+      let item = arr[i];
 
+      // If no `promise` or `comparitor` properties
       if (!item.promise || !item.comparitor) {
         reject(new Error(`Promise-Trial: argument at index ${i} must contain a 'promise' and 'comparitor' argument`));
       }
 
+      // When the promise resolves test
+      // against the comparitor
       item.promise
         .then(function (i, resp) {
+          // If comparitor fails, exit immediately
           if (!comparitorWithArgs(resp, args, item.comparitor)) {
             resolve({
               failedIndex: i,
               passed: false
             });
           } else {
-            completed++;
+            completed++; // Otherwise iterate completed count and continue
             resolvedData[i] = resp;
           }
 
+          // If the `completed` and `count` equal then we're done
           if (completed === count) {
             resolve({
               count,
@@ -69,6 +72,8 @@ export default function (arr, ...args) {
           }
         }.bind(null, i)) // Bind in the index value for tracking
         .catch(function (index, e) {
+          // If there's failure in one of the Promises keep processing
+          // the rest but store the error data
           var err = new Error(e);
           rejected.push({
             err,
