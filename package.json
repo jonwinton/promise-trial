@@ -1,6 +1,6 @@
 {
   "name": "promise-trial",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Execute a batch of Promises and test them as they come in. Exit early when one fails.",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
