@@ -33,6 +33,10 @@ function lessThanThree(val) {
   return val < 3;
 }
 
+// Test that arguments can be passed in
+function comparitorWithArgs(val, arg1, arg2) {
+  return arg1 === 'arg1' && arg2 === 'arg2';
+}
 
 describe('Promise Trial', function () {
   // Initialization errors
@@ -43,6 +47,18 @@ describe('Promise Trial', function () {
 
     it('if argument does not include `promise` and `comparitor` arguments', function () {
       lib([{}]).catch(e => { expect(e).to.be.an('error'); })
+    });
+  });
+
+  describe('allows arguments to be passed', function () {
+    it('into each comparitor function', function () {
+      return lib([{
+          promise: one,
+          comparitor: comparitorWithArgs
+        }], 'arg1', 'arg2')
+        .then(function (resp) {
+          expect(resp.passed).to.be.true;
+        })
     });
   });
 

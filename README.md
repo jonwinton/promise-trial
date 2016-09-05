@@ -81,5 +81,17 @@ Whenever a `comparitor` returns `false` the trial will immediately resolve and s
 ### Rejection
 A trial will not `reject` unless a malformed test object is passed in. Ensure that your objects contain two the `promise` and `comparitor` properties
 
+# Arguments In Comparitors
+If you need to pass arguments into each trial you can do so as additional arguments to the `trial` function. Arguments will be passed into the `comparitor` function in the same order that they're passed into the `trial` function. For example:
+```javascript
+import trial from 'promise-trial';
+
+trial([myTrialObject], 'arg1', 'arg2')
+  .then(resp => {
+    // Perform application logic
+    // after test completes
+  });
+```
+
 # Contribution
 Creat a pull request with a failing unit test, and I'll gladly help fix it
